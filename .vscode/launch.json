@@ -4,6 +4,17 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "启动指令",
+            "program": "${workspaceFolder}/app.js",
+            "args": [
+                "${workspaceFolder}/pbxproj/ibu-project.pbxproj",
+                "${workspaceFolder}/pbxproj/main-project.pbxproj",
+            ]
+        },
         {
             "type": "node",
             "request": "launch",

@@ -52,7 +52,7 @@ class XcodeBuildSettingsMergeManager {
     
     async showConfigurationsForProjectHelper(helper){
         await helper.startParse()
-        let configurationDescriptionList = await helper.getConfigurationDescriptionList()
+        let configurationDescriptionList = helper.getConfigurationDescriptionList()
         /* 终端输出列表 */
         let headers = [{value:'name'},{value:'uuid'}]
         let rows = []

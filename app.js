@@ -1,5 +1,11 @@
 /** 入口文件 */
-// process.stdin.setEncoding('utf8');
+const CommandManager = require('./command')
+console.log('env = ',process.argv)
+let src = process.argv[2]
+let dst = process.argv[3]
+let commander = new CommandManager({src,dst})
+
+process.stdin.setEncoding('utf-8');
 
 process.on('beforeExit', () => {
     console.log('beforeExit')
@@ -8,25 +14,11 @@ process.on('exit', (code) => {
     console.log('exit ', code)
 })
 process.on('SIGINT', () => {
-    console.log('receive CTL+c')
     process.exit(0)
 })
 
-// process.stdin.on('readable', () => {
-//     const chunk = process.stdin.read();
-//     if (chunk !== null) {
-//         process.stdout.write(`readable: ${chunk}`);
-//     }
-// });
-
-// process.stdin.on('end', () => {
-//     console.log('end')
-//     process.stdout.write('end');
-// });
-
 process.stdin.on('data',(chunk)=>{
-    console.log('chunk , ' ,new String(chunk))
-    process.stdout.write('data : ',chunk);
+    console.log('【 接收到指令 】：  ' ,chunk)
+    commander.runCommand(chunk)
 })
 
-// process.stdin.resume();

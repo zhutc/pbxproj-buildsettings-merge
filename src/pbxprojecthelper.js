@@ -28,13 +28,13 @@ class PBXProjectHelper {
     }
 
     /** 获取描述 */
-    async getConfigurationDescriptionList(){
+    getConfigurationDescriptionList(){
         let configurationList = this.getConfigurationList()
         let configurationDescriptionList = []
-        for (const configurationId in this.configurationList) {
+        for (const configurationId in configurationList) {
             let configuration = {
                 'uuid': configurationId,
-                'name': this.configurationList[configurationId].name
+                'name': configurationList[configurationId].name
             }
             configurationDescriptionList.push(configuration)
         }
