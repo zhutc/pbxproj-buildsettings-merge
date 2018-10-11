@@ -1,5 +1,5 @@
+const ConsoleTable = require('tty-table')
 const PBXProjectHelper = require('./pbxprojecthelper')
-
 
 class XcodeBuildSettingsMergeManager { 
     constructor({src,dst,output,})
@@ -24,6 +24,7 @@ class XcodeBuildSettingsMergeManager {
 
     async showBuildSettings(){
         try {
+            await this.srcProjectHelper.startParse()
             let configurationList = await this.srcProjectHelper.getConfigurationList()
             for (const configurationID in configurationList) {
                 if (configurationID.endsWith('_comment')) {
@@ -39,6 +40,27 @@ class XcodeBuildSettingsMergeManager {
         } catch (error) {
             console.log('src parse error')
         }
+    }
+    /* 获取pbx所有的configuration  */
+    async showConfigurations(){
+        try {
+            this.showConfigurationsForProjectHelper(this.srcProjectHelper)
+        } catch (error) {
+            
+        }
+    }
+    
+    async showConfigurationsForProjectHelper(helper){
+        await helper.startParse()
+        let configurationDescriptionList = await helper.getConfigurationDescriptionList()
+        /* 终端输出列表 */
+        let headers = [{value:'name'},{value:'uuid'}]
+        let rows = []
+        for (const dsc of configurationDescriptionList) {
+            rows.push([dsc.name,dsc.uuid])   
+        }
+        let table = new ConsoleTable(headers,rows)
+        console.log(table.render())
     }
 }
 
